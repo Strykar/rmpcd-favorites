@@ -1,0 +1,5 @@
+{
+    "author": "Strykar",
+    "name": "favorites",
+    "entry_point": "favorites.lua"
+}
