@@ -8,10 +8,13 @@ index. From that index the plugin regenerates up to three stored playlists
 directly in MPD's `playlist_directory`, so they show up in rmpc, myMPD, ncmpcpp
 or anything else that lists stored playlists:
 
-- **Favorites** — every favorite, in the order you added them
-- **Favorites-Top** — favorites ranked by play count (pairs with
+- **rmpcd-favorites** — every favorite, in the order you added them
+- **rmpcd-favorites-top** — favorites ranked by play count (pairs with
   `#builtin.playcount`)
-- **Favorites-Fresh** — your most recently added favorites
+- **rmpcd-favorites-fresh** — your most recently added favorites
+
+The names are prefixed so they can never clobber a playlist you already
+have; rename them via `setup()` if you prefer something shorter.
 
 ## Install
 
@@ -21,10 +24,10 @@ In `~/.config/rmpcd/init.lua`:
 rmpcd.install({ url = "https://github.com/Strykar/rmpcd-favorites.git" }):setup({
     -- everything below is optional, defaults shown
     playlist_dir = os.getenv("HOME") .. "/.config/mpd/playlists",
-    static_playlist = "Favorites",
-    top_playlist = "Favorites-Top",
+    static_playlist = "rmpcd-favorites",
+    top_playlist = "rmpcd-favorites-top",
     top_limit = 25,
-    fresh_playlist = "Favorites-Fresh",
+    fresh_playlist = "rmpcd-favorites-fresh",
     fresh_limit = 25,
     playcount_sticker = "playCount",
     notify = true, -- desktop notification on favorite/unfavorite
@@ -57,7 +60,7 @@ Bind it in rmpc (`config.ron`, merges with default keybinds):
 ```ron
 keybinds: (
     global: {
-        "L": ExternalCommand(
+        "F": ExternalCommand(
             command: ["mpc", "sendmessage", "rmpcd.favorites", "toggle"],
             description: "Favorite/unfavorite the current song",
         ),

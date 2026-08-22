@@ -16,10 +16,10 @@
 
 ---@class FavoritesPluginArgs
 ---@field playlist_dir string|nil MPD playlist_directory. Default: $HOME/.config/mpd/playlists
----@field static_playlist string|nil Playlist with all favorites. Default: "Favorites"
----@field top_playlist string|nil Most-played favorites. Default: "Favorites-Top"
+---@field static_playlist string|nil Playlist with all favorites. Default: "rmpcd-favorites"
+---@field top_playlist string|nil Most-played favorites. Default: "rmpcd-favorites-top"
 ---@field top_limit number|nil Size of the top playlist. Default: 25
----@field fresh_playlist string|nil Recently favorited. Default: "Favorites-Fresh"
+---@field fresh_playlist string|nil Recently favorited. Default: "rmpcd-favorites-fresh"
 ---@field fresh_limit number|nil Size of the fresh playlist. Default: 25
 ---@field playcount_sticker string|nil Sticker to rank the top playlist by. Default: "playCount"
 ---@field notify boolean|nil Desktop notification on favorite/unfavorite. Default: true when notify-send exists
@@ -29,10 +29,12 @@
 ---@type FavoritesPlugin
 local M = {
 	playlist_dir = os.getenv("HOME") .. "/.config/mpd/playlists",
-	static_playlist = "Favorites",
-	top_playlist = "Favorites-Top",
+	-- Prefixed names so the generated playlists can never clobber a playlist
+	-- the user already has ("Favorites" is a common one).
+	static_playlist = "rmpcd-favorites",
+	top_playlist = "rmpcd-favorites-top",
 	top_limit = 25,
-	fresh_playlist = "Favorites-Fresh",
+	fresh_playlist = "rmpcd-favorites-fresh",
 	fresh_limit = 25,
 	playcount_sticker = "playCount",
 	notify = nil,
