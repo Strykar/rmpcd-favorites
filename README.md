@@ -79,3 +79,7 @@ Any MPD client that can send channel messages works the same way.
 - The rmpcd Lua API has no sticker search yet, so favorites marked outside
   this plugin (e.g. `mpc sticker ... set favorite 1`) are not picked up
   automatically.
+- Favorites that have no `playCount` sticker yet rank last in the top
+  playlist, and rmpcd currently logs each missing-sticker lookup as an
+  error during regeneration; harmless, quiets down once `#builtin.playcount`
+  has seen the songs.
