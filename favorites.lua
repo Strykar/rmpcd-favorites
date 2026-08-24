@@ -234,21 +234,6 @@ M.message = function(self, _channel, message)
 end
 
 ---@param self FavoritesPlugin
-M.reconnect = function(self)
-	-- rmpcd subscribes plugin channels once at startup, so after MPD drops
-	-- the connection nothing is listening and every sendmessage fails until
-	-- the daemon restarts. Claim the channel again.
-	for _, channel in ipairs(self.subscribed_channels) do
-		local ok, err = mpd.subscribe(channel)
-		if ok then
-			log.info("favorites: resubscribed to " .. channel)
-		else
-			log.error("favorites: failed to resubscribe to " .. channel .. ": " .. tostring(err))
-		end
-	end
-end
-
----@param self FavoritesPlugin
 ---@param args FavoritesPluginArgs
 M.setup = function(self, args)
 	args = args or {}
